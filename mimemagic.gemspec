@@ -30,3 +30,4 @@ Gem::Specification.new do |s|
     s.metadata['bug_tracker_uri'] = "https://github.com/mimemagicrb/mimemagic/issues"
   end
 end
+# test
