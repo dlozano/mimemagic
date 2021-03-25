@@ -22,7 +22,11 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: false # runs 'bundle install' and caches installed gems automatically
-      - run: gem install nokogiri --version 1.9.1 --verbose
-      - run: bundle install --verbose
+      # Workaround: For some reason installation of nokogiri on ruby < 2.5 via bundle is failing
+      - run: gem install nokogiri --version '~> 1.9.1'
+        if: ${{ matrix.ruby-version == '2.2' }}
+      - run: gem install nokogiri --version '~> 1.10.10'
+        if: ${{ matrix.ruby-version == '2.3' || matrix.ruby-version == '2.4' }}
+      - run: bundle install
       - run: cd ext/mimemagic && bundle exec rake
       - run: bundle exec rake
