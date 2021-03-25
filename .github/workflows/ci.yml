@@ -13,20 +13,21 @@ jobs:
   test:
     name: 'Ruby: ${{ matrix.ruby-version }}'
     runs-on: ubuntu-20.04
+    continue-on-error: ${{ matrix.allow-failure }}
     strategy:
+      fail-fast: false
       matrix:
         ruby-version: ['2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '3.0']
+        allow-failure: [false]
+        include:
+          - ruby-version: '2.1'
+            allow-failure: true
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: false # runs 'bundle install' and caches installed gems automatically
-      # Workaround: For some reason installation of nokogiri on ruby < 2.5 via bundle is failing
-      - run: gem install nokogiri --version '~> 1.9.1'
-        if: ${{ matrix.ruby-version == '2.2' }}
-      - run: gem install nokogiri --version '~> 1.10.10'
-        if: ${{ matrix.ruby-version == '2.3' || matrix.ruby-version == '2.4' }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - run: bundle install
       - run: cd ext/mimemagic && bundle exec rake
       - run: bundle exec rake
