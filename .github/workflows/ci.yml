@@ -18,10 +18,11 @@ jobs:
         ruby-version: ['2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '3.0']
     steps:
       - uses: actions/checkout@v2
+      - name: Install xmllint
+        run: sudo apt-get install build-essential patch zlib1g-dev liblzma-dev
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: false # runs 'bundle install' and caches installed gems automatically
-      - run: bundle install --verbose
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - run: cd ext/mimemagic && bundle exec rake
       - run: bundle exec rake
