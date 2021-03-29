@@ -25,12 +25,10 @@ jobs:
           - ruby-version: 'head'
             allow-failure: true
             frozen-string: true
-        include:
           - ruby-version: '2.2'
             allow-failure: false
             frozen-string: false
-        # minitest requirement is breaking this job
-        include:
+          # minitest requirement is breaking this job
           - ruby-version: '2.1'
             allow-failure: true
             frozen-string: false
