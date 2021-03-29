@@ -25,8 +25,12 @@ jobs:
           - ruby-version: 'head'
             allow-failure: true
             frozen-string: true
+          # issue with redcarpet gem installation
+          - ruby-version: 'jruby'
+            allow-failure: true
+            frozen-string: true
           - ruby-version: '2.2'
-            allow-failure: false
+            allow-failure: true
             frozen-string: false
           # minitest requirement is breaking this job
           - ruby-version: '2.1'
