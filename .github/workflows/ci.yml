@@ -34,4 +34,4 @@ jobs:
       - run: echo $RUBYARCHDIR
       - run: bundle exec rake ext:default
       # I am not sure which is the issue with RUBYARCHDIR
-      - run: bundle exec rake test
+      - run: bundle exec rake test --trace
