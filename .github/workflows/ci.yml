@@ -29,9 +29,5 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: false # runs 'bundle install' and caches installed gems automatically
-      - run: bundle install
-      - run: echo $RUBYARCHDIR
-      - run: bundle exec rake ext:default
-      # I am not sure which is the issue with RUBYARCHDIR
-      - run: bundle exec rake test --trace
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - run: bundle exec rake test
